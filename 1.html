@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Code Highlight with Copy Button</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+  <!-- and it's easy to individually load additional languages -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/python.min.js"></script>
+
+  <script>hljs.highlightAll();</script>
+
+  <style>
+    pre {
+      position: relative;
+      padding-top: 2.5em;
+      background: #f6f8fa;
+      overflow: auto;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+    }
+
+    code {
+      display: block;
+      padding: 1em;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5em;
+      right: 0.5em;
+      padding: 4px 8px;
+      font-size: 0.75em;
+      background-color: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .copy-btn:hover {
+      background-color: #eaeef2;
+    }
+  </style>
+</head>
+<body>
+
+<h3>Example Code</h3>
+<pre><code class="language-javascript">function hello(name) {
+  console.log("Hello, " + name);
+}</code></pre>
+
+<script>
+  // Wait until DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+    hljs.highlightAll(); // Highlight all <code> blocks
+
+    // Add copy buttons to all <pre> elements
+    document.querySelectorAll('pre').forEach(pre => {
+      const button = document.createElement('button');
+      button.innerText = 'Copy';
+      button.className = 'copy-btn';
+
+      button.addEventListener('click', () => {
+        const code = pre.querySelector('code').innerText;
+        navigator.clipboard.writeText(code).then(() => {
+          button.innerText = 'Copied!';
+          setTimeout(() => button.innerText = 'Copy', 1500);
+        });
+      });
+
+      pre.appendChild(button);
+    });
+  });
+</script>
+
+</body>
+</html>
