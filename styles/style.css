@@ -58,6 +58,7 @@ nav ul {
 nav li {
     height: 50px;
     border-radius: var(--radius);
+    font-weight: 600;
 }
 
 nav a {
