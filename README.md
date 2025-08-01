@@ -28,3 +28,4 @@ Things not tried yet
 
 There is an idea to make the categories the directory and the tags connected to the page metadata. I need to find a way to store tags in page so that I can render the page without making a mess of tags. But currently the Idea That I have does not facilitate static pages. all the pages will be rendered in the index page with js DOM data manipulation. I may need to know if that will cause problems or not.
 
+The current experimental build is online at [github pages URL](https://sadman-ishtiak.github.io/My-Learning-Blog/)
