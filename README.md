@@ -8,6 +8,7 @@ So, My requirements are -
 4. must have a category system
 5. Use markdown to write blogs instead of html - probably use json to store the note in the first place and then render it.
 
+
 Things that I have figured out
 1. How to syntax highlight with code copy button 
 2. How to render an equation
@@ -18,8 +19,12 @@ Things that I have figured out
 
 
 Things that are causing problems
-1. Syntax setup
-3. Designing the output setup for the contents
+1. I still do not know if DOM manipulated data gets rerendered to the syntax highlight and math parsing or not
 
 Things not tried yet
-1. tag, category and markdown parsing system 
+1. tag, category and markdown parsing system
+2. Syntax setup - the structure of the contents
+3. Designing the output setup for the contents
+
+There is an idea to make the categories the directory and the tags connected to the page metadata. I need to find a way to store tags in page so that I can render the page without making a mess of tags. But currently the Idea That I have does not facilitate static pages. all the pages will be rendered in the index page with js DOM data manipulation. I may need to know if that will cause problems or not.
+
