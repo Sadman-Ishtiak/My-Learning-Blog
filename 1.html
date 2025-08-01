@@ -2,31 +2,75 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Code Highlight with Copy Button</title>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+  <title>Code Highlight with Copy Button + Theme Toggle</title>
+
+  <!-- Highlight.js stylesheet (will be swapped dynamically) -->
+  <link id="hljs-style" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 
-  <!-- and it's easy to individually load additional languages -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/go.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/javascript.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/languages/python.min.js"></script>
-
-  <script>hljs.highlightAll();</script>
-
   <style>
+    :root {
+      --bg: #f6f8fa;
+      --text: #1f2d3a;
+      --code-bg: #ffffff;
+      --pre-border: #d0d7de;
+      --btn-bg: #e1e4e8;
+      --btn-text: #1f2d3a;
+    }
+    [data-theme="dark"] {
+      --bg: #0d1117;
+      --text: #c9d1d9;
+      --code-bg: #161b22;
+      --pre-border: #30363d;
+      --btn-bg: #21262d;
+      --btn-text: #c9d1d9;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+      padding: 1rem;
+      transition: background .3s, color .3s;
+    }
+
+    h3 {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .theme-toggle {
+      padding: 6px 12px;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      border: 1px solid var(--pre-border);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9em;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background .2s, color .2s;
+    }
+
     pre {
       position: relative;
       padding-top: 2.5em;
-      background: #f6f8fa;
+      background: var(--code-bg);
       overflow: auto;
-      border: 1px solid #d0d7de;
+      border: 1px solid var(--pre-border);
       border-radius: 6px;
+      transition: background .3s, border-color .3s;
     }
 
     code {
       display: block;
       padding: 1em;
+      background: transparent; /* highlight.js handles inner styling */
     }
 
     .copy-btn {
@@ -35,48 +79,95 @@
       right: 0.5em;
       padding: 4px 8px;
       font-size: 0.75em;
-      background-color: #f6f8fa;
-      border: 1px solid #d0d7de;
+      background-color: var(--btn-bg);
+      color: var(--btn-text);
+      border: 1px solid var(--pre-border);
       border-radius: 5px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: background 0.3s, color .3s;
     }
 
     .copy-btn:hover {
-      background-color: #eaeef2;
+      filter: brightness(1.1);
+    }
+
+    .small {
+      font-size: 0.8em;
+      margin: 0;
     }
   </style>
 </head>
 <body>
 
-<h3>Example Code</h3>
-<pre><code class="language-javascript">function hello(name) {
+  <h3>
+    <span>Example Code</span>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme">Toggle Theme</button>
+  </h3>
+
+  <pre><code class="language-javascript">function hello(name) {
   console.log("Hello, " + name);
 }</code></pre>
 
-<script>
-  // Wait until DOM is ready
-  document.addEventListener("DOMContentLoaded", () => {
-    hljs.highlightAll(); // Highlight all <code> blocks
+  <script>
+    // Theme management
+    const root = document.documentElement;
+    const toggle = document.getElementById('theme-toggle');
+    const HLJS_LIGHT = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css';
+    const HLJS_DARK = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css';
+    const hljsLink = document.getElementById('hljs-style');
 
-    // Add copy buttons to all <pre> elements
-    document.querySelectorAll('pre').forEach(pre => {
-      const button = document.createElement('button');
-      button.innerText = 'Copy';
-      button.className = 'copy-btn';
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        hljsLink.href = HLJS_DARK;
+        toggle.innerText = 'Light Mode';
+      } else {
+        root.removeAttribute('data-theme');
+        hljsLink.href = HLJS_LIGHT;
+        toggle.innerText = 'Dark Mode';
+      }
+      localStorage.setItem('theme-preference', theme);
+    }
 
-      button.addEventListener('click', () => {
-        const code = pre.querySelector('code').innerText;
-        navigator.clipboard.writeText(code).then(() => {
-          button.innerText = 'Copied!';
-          setTimeout(() => button.innerText = 'Copy', 1500);
-        });
-      });
+    // Initialize from saved or system preference
+    const saved = localStorage.getItem('theme-preference');
+    if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      applyTheme('dark');
+    } else {
+      applyTheme('light');
+    }
 
-      pre.appendChild(button);
+    toggle.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
     });
-  });
-</script>
+
+    // Code highlighting + copy buttons
+    document.addEventListener("DOMContentLoaded", () => {
+      hljs.highlightAll(); // Highlight code blocks
+
+      document.querySelectorAll('pre').forEach(pre => {
+        const button = document.createElement('button');
+        button.innerText = 'Copy';
+        button.className = 'copy-btn';
+        button.setAttribute('aria-label', 'Copy code to clipboard');
+
+        button.addEventListener('click', async () => {
+          const code = pre.querySelector('code').innerText;
+          try {
+            await navigator.clipboard.writeText(code);
+            button.innerText = 'Copied!';
+            setTimeout(() => button.innerText = 'Copy', 1500);
+          } catch (e) {
+            button.innerText = 'Failed';
+            setTimeout(() => button.innerText = 'Copy', 1500);
+          }
+        });
+
+        pre.appendChild(button);
+      });
+    });
+  </script>
 
 </body>
 </html>

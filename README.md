@@ -11,11 +11,12 @@ So, My requirements are -
 Things that I have figured out
 1. How to syntax highlight with code copy button 
 2. How to render an equation
+3. Basic design of the webpage
 
 Things that are causing problems
 1. Inline equations are not rendering the library i used prints equations in a separate line at the center of container.
 
 
 Things not tried yet
-1. Theme design
+1. Theme design configuration in the webpage
 2. tag, category and markdown parsing system 

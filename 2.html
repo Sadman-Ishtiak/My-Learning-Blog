@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hello</title>
+
+  <!-- MathJax v3 config: enable $...$ as inline -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <h1>Hello</h1>
+  <p>The Einstein equation is $e = mc^2$.</p>
+  <p>The Pythagorean theorem is $a^2 + b^2 = c^2$.</p>
+  <p>Here is a simple integral: $\int_0^1 x^2 \, dx = \frac{1}{3}$.</p>
+  <p>And a summation: $$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$</p>
+  <p>Finally, a matrix example: $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$.</p>
+  <p>And a fraction: $\frac{a}{b}$.</p>
+</body>
+</html>
