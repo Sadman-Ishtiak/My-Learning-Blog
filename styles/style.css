@@ -7,14 +7,14 @@
 
 /* theme variables */
 :root {
-    --bg: #ffffff;
-    --text: #000000;
-    --nav-bg: #ffffff;
+    --bg: #f7f6f3;
+    --text: #2f2f38;
+    --nav-bg: #f0eee9;
     --shadow: rgba(0, 0, 0, 0.1);
-    --code-bg: #e2e2e2;
-    --pre-border: #d0d7de;
-    --btn-bg: #ffffff;
-    --btn-text: #000000;
+    --code-bg: #ece8e1;
+    --pre-border: #d8d2c6;
+    --btn-bg: #e7e3db;
+    --btn-text: #2f2f38;
     --radius: 10px;
 }
 
@@ -196,6 +196,9 @@ code {
 }
 
 #content {
-    margin: 10px;
+    max-width: 900px;
+    align-content: center;
+    margin: auto;
     padding: 10px;
+    align-self: center;
 }
