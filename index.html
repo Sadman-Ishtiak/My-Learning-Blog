@@ -34,10 +34,14 @@
         function showSidebar() {
             const sidebar = document.querySelector('.sidebar');
             sidebar.style.display = 'flex';
+            const menuButton = document.querySelector('.menuButton');
+            menuButton.style.display = 'none';
         }
         function hideSidebar() {
             const sidebar = document.querySelector('.sidebar');
             sidebar.style.display = 'none';
+            const menuButton = document.querySelector('.menuButton');
+            menuButton.style.display = 'block';
         }
     </script>
 </body>
