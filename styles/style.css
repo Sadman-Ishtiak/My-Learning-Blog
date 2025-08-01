@@ -1,46 +1,85 @@
-
-
-
-*{
+/* reset */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
+
+/* theme variables */
+:root {
+    --bg: #ffffff;
+    --text: #000000;
+    --nav-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --code-bg: #e2e2e2;
+    --pre-border: #d0d7de;
+    --btn-bg: #ffffff;
+    --btn-text: #000000;
+    --radius: 10px;
+}
+
+[data-theme="dark"] {
+    --bg: #0f172a;
+    --text: #c9d1d9;
+    --nav-bg: #0f172a;
+    --shadow: rgba(255, 255, 255, 0.05);
+    --code-bg: #00183a;
+    --pre-border: #004ea8;
+    --btn-bg: #0f172a;
+    --btn-text: #c9d1d9;
+}
+
 body {
-    min-height: 100vh;
-    background-color: white;
+        padding: 0;
+        margin: 0;
+        min-height: 100vh;
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        transition: background .3s, color .3s;
 }
+
 nav {
-    background-color: white;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    background-color: var(--nav-bg);
+    box-shadow: 3px 3px 5px var(--shadow);
+    margin-bottom: 1rem;
 }
+
 nav ul {
     width: 100%;
     list-style: none;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
 }
+
 nav li {
     height: 50px;
-    border-color: black;
-    border-radius: 10px;
+    border-radius: var(--radius);
 }
+
 nav a {
     height: 100%;
-    padding: 0 30px;
+    padding: 0 20px;
     text-decoration: none;
     display: flex;
     align-items: center;
-    color: black;
+    color: var(--text);
+    font-size: 0.9rem;
+    gap: 4px;
 }
+
 nav a:hover {
-    background-color: lightgray;
+    background-color: rgba(0,0,0,0.05);
 }
 
 nav li:first-child {
     margin-right: auto;
 }
 
+/* Sidebar */
 .sidebar {
     position: fixed;
     top: 0;
@@ -49,27 +88,44 @@ nav li:first-child {
     width: 250px;
     z-index: 999;
     background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: -10px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: -10px 0px 10px var(--shadow);
     display: none;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    padding-top: 1rem;
+    gap: 0.5rem;
+}
+
+[data-theme="dark"] .sidebar {
+    background-color: rgba(15, 23, 42, 0.95);
 }
 
 .sidebar li {
     width: 100%;
 }
+
 .sidebar a {
     width: 100%;
+    padding: 10px 20px;
+    display: block;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
 }
 
-@media (min-width : 650px) {
+.sidebar a:hover {
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* Responsive */
+@media (min-width: 651px) {
     .menuButton {
         display: none;
     }
 }
 
-@media (max-width : 650px) {
+@media (max-width: 650px) {
     .hideOnMobile {
         display: none;
     }
@@ -77,8 +133,68 @@ nav li:first-child {
         display: block;
     }
 }
-@media (max-width : 400px) {
+
+@media (max-width: 400px) {
     .sidebar {
         width: 100%;
     }
+}
+
+/* Code block + copy button */
+pre {
+    position: relative;
+    padding: 1em;
+    padding-top: 2.5em;
+    background: var(--code-bg);
+    overflow: auto;
+    border: 1px solid var(--pre-border);
+    border-radius: 6px;
+    margin: 1rem 0;
+    transition: background .3s, border-color .3s;
+}
+
+code {
+    display: block;
+    white-space: pre;
+    font-family: monospace;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    padding: 4px 8px;
+    font-size: 0.65em;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border: 1px solid var(--pre-border);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: filter .2s;
+}
+
+
+/* Theme toggle button (if needs extra styling) */
+.theme-toggle {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--text);
+    font-size: 0; /* hide any accidental text */
+    text-decoration: none;
+}
+
+/* optional hover effect to give subtle affordance */
+.theme-toggle:hover svg {
+    filter: brightness(1.2);
+}
+
+#content {
+    margin: 10px;
+    padding: 10px;
 }
