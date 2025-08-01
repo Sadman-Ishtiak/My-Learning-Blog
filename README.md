@@ -13,12 +13,13 @@ Things that I have figured out
 2. How to render an equation
 3. Basic design of the webpage
 4. Inline equations are not rendering the library i used prints equations in a separate line at the center of container.
+5. Theme design configuration in the webpage
+6. Theme toggling
+
 
 Things that are causing problems
-1. Theme toggling
-2. Syntax setup
+1. Syntax setup
 3. Designing the output setup for the contents
 
 Things not tried yet
-1. Theme design configuration in the webpage
-2. tag, category and markdown parsing system 
+1. tag, category and markdown parsing system 
