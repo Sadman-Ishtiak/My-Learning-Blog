@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>My Learning Blog template index page</title>
+    <link id="hljs-style" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" defer></script>
+    <link rel="stylesheet" href="./styles/style.css">
+    <script src="./scripts/parsing_latex.js"></script>
+</head>
+<body>
+    <nav>
+        <ul class="sidebar">
+            <li onclick="hideSidebar()"><a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="currentColor"><path d="m247-195-51-52 233-233-233-234 51-52 234 234 232-234 51 52-232 234 232 233-51 52-232-234-234 234Z"/></svg>
+            </a></li>
+            <li><a href="./category.html">Categories</a></li>
+            <li><a href="./tags.html">Tags</a></li>
+            <li><a href="./projects.html">Projects</a></li>
+            <li><a href="./about.html">About Me</a></li>
+            <li>
+                <a href="#" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></a>
+            </li>
+        </ul>
+        <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li class="hideOnMobile"><a href="./category.html">Categories</a></li>
+            <li class="hideOnMobile"><a href="./tags.html">Tags</a></li>
+            <li class="hideOnMobile"><a href="./projects.html">Projects</a></li>
+            <li class="hideOnMobile"><a href="./about.html">About Me</a></li>
+            <li class="hideOnMobile">
+                <a href="#" id="theme-toggle-clone" class="theme-toggle" aria-label="Toggle theme"></a>
+            </li>
+            <li onclick="showSidebar()" class="menuButton"><a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="currentColor"><path d="M104-231v-73h752v73H104Zm0-213v-73h752v73H104Zm0-213v-73h752v73H104Z"/></svg>
+            </a></li>
+        </ul>
+    </nav>
+
+    <div id="content">
+        <h1>Hi there, </h1>
+        <p>I’m Sadman Ishtiak. I’m someone who enjoys solving problems, exploring new ideas, learning about pattern, and turning my curiosity into projects. My background blends technology, data, and a bit of creative experimentation. Whether it’s learning a new tool, building something from scratch, or figuring out how things work under the hood, I’m always looking for ways to grow and challenge myself.</p>
+        
+        <p>I am currently a Computer Science and Engineering undergraduate student at Jatiya Kabi Kazi Nazrul Islam University. I am persuing a career in Software development. If you are curious about me you can contact me via <a href="https://www.linkedin.com/in/sadman-ishtiak/">LinkedIn</a>, <a href="https://www.facebook.com/sadmanishtiak1/">FaceBook</a> or even <a href="http://github.com/Sadman-Ishtiak">Github</a>.</p>
+
+        <p>If you find any mistakes in any of my work or want to give me any suggestion feel free to contact me.</p>
+    </div>
+    
+    <script src="./scripts/theme_and_syntax_highlight.js"></script>
+</body>
+</html>
