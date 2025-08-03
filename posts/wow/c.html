@@ -1,0 +1,23 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Rendering Desmos States with Manim",
+  "dateCreated": "2025-06-15",
+  "dateModified": "2025-06-20",
+  "datePublished": "2025-06-15",
+  "author": {
+    "@type": "Person",
+    "name": "Sadman Ishtiak"
+  },
+  "keywords": ["desmos", "manim", "animation", "math"],
+  "description": "How I turned Desmos graph states into smooth Manim animations."
+}
+</script>
+
+<article>
+  <h1>Rendering Desmos States with Manim</h1>
+  <p>I built a pipeline that takes Desmos state JSON, interprets the objects, and renders them as animations in Manim. Challenges included mapping styling, handling LaTeX labels, and respecting domain constraints.</p>
+  <p>The approach: parse the Desmos JSON, translate expressions to LaTeX-friendly form, and progressively reveal elements with timing that mirrors user interaction.</p>
+  <p>Future work includes adding interactivity and exporting to video formats automatically.</p>
+</article>
