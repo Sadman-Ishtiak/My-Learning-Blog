@@ -16,6 +16,7 @@
     --btn-bg: #f7f6f3;
     --btn-text: #2f2f38;
     --radius: 10px;
+    --link-color : #0000ff;
 }
 
 [data-theme="dark"] {
@@ -27,6 +28,12 @@
     --pre-border: #004ea8;
     --btn-bg: #0f172a;
     --btn-text: #c9d1d9;
+    --link-color : #9999ff;
+}
+
+a {
+    text-decoration: none;
+    color: var(--link-color);
 }
 
 body {
