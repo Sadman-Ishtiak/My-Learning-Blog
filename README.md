@@ -1,3 +1,5 @@
+My exam is near so i have to sunset this project for now. I need to learn how to work with github action and jekyll to make this work in a seamless way that i want it to work. and i have little to no knowledge about designing such complecated project with javascript which I have only learned for less than a month. So I will be using some open source theme to make my blog site, and modify it for my need. This was another great learning venture which ended to nothing.
+
 # My Learning Blog
 "My Learning Blog" is the blog where I will put all the things that I am not ashamed of sharing that I have learned. So I thought that I could easily find easy javascript program that do things exactly the way I wanted. But Either what i find is too complicated or just not cutting it good enough. So I will have to make the full program by myself.
 
