@@ -1,0 +1,28 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Getting Started with Vanilla JavaScript Modules",
+  "dateCreated": "2025-08-01",
+  "dateModified": "2025-08-01",
+  "datePublished": "2025-08-01",
+  "author": {
+    "@type": "Person",
+    "name": "Sadman Ishtiak"
+  },
+  "keywords": ["javascript", "modules", "tutorial"],
+  "description": "A concise introduction to using ES modules without external libraries."
+}
+</script>
+
+<article>
+  <h1>Getting Started with Vanilla JavaScript Modules</h1>
+  <p>ES modules are built into modern browsers and Node.js. You can split your code into reusable pieces without any third-party tooling. Just use <code>type="module"</code> on your script tags and <code>import</code>/<code>export</code> syntax.</p>
+  <p>Example:</p>
+  <pre><code>export function greet(name) {
+  return `Hello, ${name}!`;
+}</code></pre>
+  <p>Then in another file:</p>
+  <pre><code>import { greet } from './utils.js';
+console.log(greet('World'));</code></pre>
+</article>
