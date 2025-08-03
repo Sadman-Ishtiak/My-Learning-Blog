@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Reading Page</title>
+        <link id="hljs-style" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" defer></script>
+        <link rel="stylesheet" href="./styles/style.css">
+        <script src="./scripts/parsing_latex.js"></script>
+</head>
+<body>
+        <nav>
+                <ul class="sidebar">
+                        <li onclick="hideSidebar()"><a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="currentColor"><path d="m247-195-51-52 233-233-233-234 51-52 234 234 232-234 51 52-232 234 232 233-51 52-232-234-234 234Z"/></svg>
+                        </a></li>
+                        <li><a href="./category.html">Categories</a></li>
+                        <li><a href="./tags.html">Tags</a></li>
+                        <li><a href="./projects.html">Projects</a></li>
+                        <li><a href="./about.html">About Me</a></li>
+                        <li>
+                                <a href="#" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme"></a>
+                        </li>
+                </ul>
+                <ul>
+                        <li><a href="./index.html">Home</a></li>
+                        <li class="hideOnMobile"><a href="./category.html">Categories</a></li>
+                        <li class="hideOnMobile"><a href="./tags.html">Tags</a></li>
+                        <li class="hideOnMobile"><a href="./projects.html">Projects</a></li>
+                        <li class="hideOnMobile"><a href="./about.html">About Me</a></li>
+                        <li class="hideOnMobile">
+                                <a href="#" id="theme-toggle-clone" class="theme-toggle" aria-label="Toggle theme"></a>
+                        </li>
+                        <li onclick="showSidebar()" class="menuButton"><a href="#">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="26px" viewBox="0 -960 960 960" width="26px" fill="currentColor"><path d="M104-231v-73h752v73H104Zm0-213v-73h752v73H104Zm0-213v-73h752v73H104Z"/></svg>
+                        </a></li>
+                </ul>
+        </nav>
+
+        <div id="content">
+                <h1>This is the Post reading page</h1>
+                <p>No post is called to render.</p>
+                <!-- <p id="placeholder"></p> -->
+        </div>
+        <script>
+            async function loadPost() {
+                const url = new URL(window.location.href);
+                const params = Object.fromEntries(url.searchParams.entries());
+                console.log(params);
+                console.log(params['post']);
+                if (!params.post) {
+                    document.getElementById('content').innerHTML = '<p>No post specified.</p>';
+                    return;
+                }
+                const file_location = '.' + params.post;
+
+                try {
+                    const response = await fetch(file_location);
+                    if (!response.ok) throw new Error(`Fetch failed: ${response.status}`);
+                    const html = await response.text();
+
+                    const container = document.getElementById('content');
+                    const temp = document.createElement('div');
+                    temp.innerHTML = html;
+
+                    // Extract scripts so we can run them manually
+                    const scripts = Array.from(temp.querySelectorAll('script'));
+                    scripts.forEach(s => s.remove()); // remove from temp
+
+                    // Replace content with the non-script portion
+                    container.replaceChildren(...Array.from(temp.childNodes));
+
+                    // Re-insert and execute scripts in order
+                    for (const old of scripts) {
+                        await new Promise((resolve) => {
+                            const script = document.createElement('script');
+
+                            // Preserve type (e.g., module) if present
+                            if (old.type) script.type = old.type;
+
+                            if (old.src) {
+                                script.src = old.src;
+                                // Force ordered execution
+                                script.async = false;
+                                if (old.defer) script.defer = true;
+                                script.onload = () => resolve();
+                                script.onerror = () => {
+                                    console.warn('Failed to load script:', old.src);
+                                    resolve();
+                                };
+                                document.body.appendChild(script);
+                            } else {
+                                // Inline script: copy content and execute immediately
+                                script.textContent = old.textContent;
+                                document.body.appendChild(script);
+                                resolve();
+                            }
+                        });
+                    }
+
+                    // Example: now you can safely access injected content
+                    console.log('Post loaded.'); 
+                } catch (err) {
+                    document.getElementById('content').innerHTML = "<p>Error loading post.</p>";
+                    console.error(err);
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', loadPost);
+
+        </script>
+        <script src="./scripts/theme_and_syntax_highlight.js"></script>
+</body>
+</html>
