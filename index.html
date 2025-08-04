@@ -37,22 +37,143 @@
             </a></li>
         </ul>
     </nav>
-
+<!-- 
     <div id="content">
-        <h1>Checking equations</h1>
-        <p>The Einstein equation is $e = mc^2$.</p>
-        <p>The Pythagorean theorem is $a^2 + b^2 = c^2$.</p>
-        <p>Here is a simple integral: $\int_0^1 x^2 \, dx = \frac{1}{3}$.</p>
-        <p>And a summation: $$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$</p>
-        <p>Finally, a matrix example: $A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}$.</p>
-        <p>And a fraction: $\frac{a}{b}$.</p>
-
-        <h1>Checking Syntax highlight</h1>
-<pre><code class="language-javascript">function hello(name) {
-  console.log("Hello, " + name);
-}</code></pre>
-    </div>
+    </div> -->
     
+
+
+
+    <div id="content"></div>
+    <div id="pagination-controls" style="margin:16px 0; display:flex; gap:8px; align-items:center; justify-content:center;"></div>
+
+
+<script>
+async function renderPostCardsWithPagination() {
+  let data;
+  try {
+    const res = await fetch('./auto/posts.json'); // adjust path
+    if (!res.ok) throw new Error(res.statusText);
+    data = await res.json();
+  } catch (e) {
+    document.getElementById('content').textContent = 'Failed to load posts.';
+    console.error(e);
+    return;
+  }
+
+  const container = document.getElementById('content');
+  const controls = document.getElementById('pagination-controls');
+
+  // Flatten and sort entries by date desc
+  const entries = Object.entries(data).sort(([, a], [, b]) => {
+    const da = new Date(a.datePublished || a.dateCreated || 0);
+    const db = new Date(b.datePublished || b.dateCreated || 0);
+    return db - da;
+  });
+
+  // Pagination state (fixed page size 25)
+  const pageSize = 25;
+  let currentPage = 1;
+  const totalPages = () => Math.max(1, Math.ceil(entries.length / pageSize));
+
+  // card factory (same as before)
+  const makeCard = (path, meta) => {
+    const a = document.createElement('a');
+    a.href = "./read.html?post=" + path;
+    a.className = 'post-card';
+    a.style.display = 'block';
+    a.style.border = '1px solid #ccc';
+    a.style.borderRadius = '8px';
+    a.style.padding = '12px';
+    a.style.margin = '8px 0';
+    a.style.textDecoration = 'none';
+    a.style.color = 'inherit';
+    a.style.transition = 'box-shadow .2s';
+    a.onmouseenter = () => a.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+    a.onmouseleave = () => a.style.boxShadow = '';
+
+    const title = document.createElement('h2');
+    title.textContent = meta.headline || meta.title_from_h1 || 'Untitled';
+    title.style.margin = '0 0 6px';
+
+    const info = document.createElement('div');
+    info.style.fontSize = '0.9em';
+    info.style.color = '#555';
+    const published = meta.datePublished || meta.dateCreated || '';
+    const category = meta.category ? ` · ${meta.category}` : '';
+    info.textContent = `${published}${category}`;
+
+    const excerpt = document.createElement('p');
+    excerpt.innerHTML = (meta.excerpt || '').slice(0, 160).replace(/\n/g, ' ') + (meta.excerpt && meta.excerpt.length > 160 ? '…' : '');
+    excerpt.style.margin = '6px 0';
+
+    const tagsWrap = document.createElement('div');
+    if (Array.isArray(meta.keywords)) {
+      meta.keywords.forEach(k => {
+        const span = document.createElement('span');
+        span.textContent = `#${k}`;
+        span.style.marginRight = '6px';
+        span.style.fontSize = '0.75em';
+        span.style.background = '#f0f0f0';
+        span.style.padding = '2px 6px';
+        span.style.borderRadius = '4px';
+        tagsWrap.appendChild(span);
+      });
+    }
+
+    a.append(title, info, excerpt, tagsWrap);
+    return a;
+  };
+
+  function renderPage() {
+    container.innerHTML = '';
+    const start = (currentPage - 1) * pageSize;
+    const pageItems = entries.slice(start, start + pageSize);
+    pageItems.forEach(([path, meta]) => container.appendChild(makeCard(path, meta)));
+    renderControls();
+  }
+
+  function renderControls() {
+    controls.innerHTML = '';
+
+    const prev = document.createElement('button');
+    prev.textContent = 'Previous';
+    prev.className = 'pagination-button';
+    prev.disabled = currentPage === 1;
+    prev.onclick = () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderPage();
+      }
+    };
+    controls.appendChild(prev);
+
+    const indicator = document.createElement('span');
+    indicator.className = 'page-indicator';
+    indicator.textContent = `Page ${currentPage} of ${totalPages()}`;
+    controls.appendChild(indicator);
+
+    const next = document.createElement('button');
+    next.textContent = 'Next';
+    next.className = 'pagination-button';
+    next.disabled = currentPage >= totalPages();
+    next.onclick = () => {
+      if (currentPage < totalPages()) {
+        currentPage++;
+        renderPage();
+      }
+    };
+    controls.appendChild(next);
+  }
+
+  renderPage();
+}
+
+document.addEventListener('DOMContentLoaded', renderPostCardsWithPagination);
+</script>
+
+
+
     <script src="./scripts/theme_and_syntax_highlight.js"></script>
 </body>
 </html>

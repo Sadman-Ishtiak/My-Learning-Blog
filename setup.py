@@ -61,7 +61,7 @@ def extract_metadata_from_string(html: str) -> dict:
 
 def metadata_maker() :
     for i in FILE_LIST:
-        print(i, os.path.getsize(i), datetime.fromtimestamp(os.path.getmtime(i)))
+        # print(i, os.path.getsize(i), datetime.fromtimestamp(os.path.getmtime(i)))
         # filedir = i
         file_text = ""
         with open(i, "r", encoding='utf-8') as blob:
@@ -70,8 +70,21 @@ def metadata_maker() :
                 file_text = file_text + line
         # print(file_text)
         dict = extract_metadata_from_string(file_text)
-        print(dict)
+        # print(dict)
+        # Fixing dict to a more readable format
+        data = {}
+        for j in dict['jsonld']:
+            data[j] = dict['jsonld'][j]
+        # set the final metadata
+        data['excerpt'] = dict['excerpt']
+        FILE_METADATA[i] = data
+
+def store_file_list_to_json(data, file):
+    with open(file, "w", encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
 
 if __name__ == "__main__":
     read_dirs("./posts")
     metadata_maker()
+    store_file_list_to_json(FILE_METADATA, "./auto/posts.json")

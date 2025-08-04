@@ -1,0 +1,79 @@
+{
+    "./posts/category1/a.html": {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Getting Started with Vanilla JavaScript Modules",
+        "dateCreated": "2025-08-01",
+        "dateModified": "2025-08-01",
+        "datePublished": "2025-08-01",
+        "author": {
+            "@type": "Person",
+            "name": "Sadman Ishtiak"
+        },
+        "keywords": [
+            "javascript",
+            "modules",
+            "tutorial"
+        ],
+        "description": "A concise introduction to using ES modules without external libraries.",
+        "excerpt": "ES modules are built into modern browsers and Node.js. You can split your code into reusable pieces without any third-party tooling. Just use <code>type=\"module\"</code> on your script tags and <code>import</code>/<code>export</code> syntax."
+    },
+    "./posts/category1/b.html": {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Why I Build Tools for Learning",
+        "dateCreated": "2025-07-28",
+        "dateModified": "2025-07-28",
+        "datePublished": "2025-07-28",
+        "author": {
+            "@type": "Person",
+            "name": "Sadman Ishtiak"
+        },
+        "keywords": [
+            "learning",
+            "tools",
+            "motivation"
+        ],
+        "description": "Reflections on why building small tools deepens understanding.",
+        "excerpt": "Creating little utilities—whether to visualize math or automate a repetitive task—turns abstract concepts into something tangible. Each line of code teaches me something new about the problem and about how I think."
+    },
+    "./posts/template.html": {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "headline": "This blog title",
+        "dateCreated": "2025-08-02",
+        "dateModified": "2025-08-02",
+        "datePublished": "2025-08-02",
+        "author": {
+            "@type": "Person",
+            "name": "Sadman Ishtiak"
+        },
+        "keywords": [
+            "tag1",
+            "tag2",
+            "tag3"
+        ],
+        "category": "category",
+        "excerpt": "THis is a paragraph in the blog Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium molestiae quas consectetur iure. Architecto id vero perspiciatis iste autem suscipit voluptatem molestias numquam iure dicta, qui temporibus exercitationem aut rerum! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Mollitia beatae culpa laudantium ex quaerat. Minus quisquam ratione quaerat culpa aperiam harum, iusto rem maxime incidunt ipsa quo odio maiores molestiae! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel maiores aut asperiores quia incidunt sapiente, ullam laudantium. Quidem cupiditate reiciendis architecto, perferendis, nobis facilis saepe quisquam beatae harum officia porro."
+    },
+    "./posts/wow/c.html": {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Rendering Desmos States with Manim",
+        "dateCreated": "2025-06-15",
+        "dateModified": "2025-06-20",
+        "datePublished": "2025-06-15",
+        "author": {
+            "@type": "Person",
+            "name": "Sadman Ishtiak"
+        },
+        "keywords": [
+            "desmos",
+            "manim",
+            "animation",
+            "math"
+        ],
+        "description": "How I turned Desmos graph states into smooth Manim animations.",
+        "excerpt": "I built a pipeline that takes Desmos state JSON, interprets the objects, and renders them as animations in Manim. Challenges included mapping styling, handling LaTeX labels, and respecting domain constraints."
+    }
+}
