@@ -30,18 +30,18 @@ def _clean_json_ld(raw: str) -> str:
     return cleaned
 
 def extract_metadata_from_string(html: str) -> dict:
-    result = {"jsonID": None, "h1": None, "excerpt": None}
+    result = {"jsonld": None, "h1": None, "excerpt": None}
 
     m_json = _JSON_LD_RE.search(html)
     if m_json:
         raw = m_json.group(1).strip()
         try:
-            result["jsonId"] = json.loads(raw)
+            result["jsonld"] = json.loads(raw)
         except json.JSONDecodeError:
             try:
-                result["jsonID"] = json.loads(_clean_json_ld(raw))
+                result["jsonld"] = json.loads(_clean_json_ld(raw))
             except Exception:
-                result["jsonID_error"] = "failed to parse JSON-LD"
+                result["jsonld_error"] = "failed to parse JSON-LD"
 
     m_h1 = _H1_RE.search(html)
     if m_h1:
@@ -53,9 +53,9 @@ def extract_metadata_from_string(html: str) -> dict:
         excerpt = re.sub(r'\s+', ' ', m_p.group(1)).strip()
         result["excerpt"] = excerpt
 
-    if result.get("jsonID") and result["jsonID"] is not None:
-        if not result["jsonID"].get("headline") and result["h1"]:
-            result["jsonID"]["headline"] = result["h1"]
+    if result.get("jsonld") and result["jsonld"] is not None:
+        if not result["jsonld"].get("headline") and result["h1"]:
+            result["jsonld"]["headline"] = result["h1"]
 
     return result
 
